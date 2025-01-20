@@ -49,15 +49,19 @@
 
   <section class="features">
     {#each features as feature (feature.id)}
-      <div
+      <button
         class="feature-card"
         on:click={() => selectedFeature = feature}
-        in:fly="{{ y: 50, duration: 500, delay: feature.id * 100 }}"
-        animate:flip
+        on:keydown={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            selectedFeature = feature;
+          }
+        }}
+        type="button"
       >
         <h3>{feature.title}</h3>
         <p>{feature.description}</p>
-      </div>
+      </button>
     {/each}
   </section>
 
@@ -135,6 +139,9 @@
     cursor: pointer;
     transition: transform 0.2s, box-shadow 0.2s;
     border: 1px solid rgba(255, 255, 255, 0.1);
+    width: 100%;
+    text-align: left;
+    display: block;
   }
 
   .feature-card:hover {
